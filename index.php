@@ -3,9 +3,9 @@
   
   $db = new PDO($dsn, $user, $pass);
   
-  include 'models/PeopleModel.php';
+  include 'models/CharacterModel.php';
   $peopleModel = new PeopleModel($db);
   $peopleList = $peopleModel->getAllPeople();
   
-  include 'views/people-list.php';
+  include 'views/character-list.php';
 ?>
