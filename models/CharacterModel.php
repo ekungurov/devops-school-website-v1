@@ -1,5 +1,5 @@
 <?php
-class PeopleModel
+class CharacterModel
 {
   protected $db;
   
@@ -8,7 +8,7 @@ class PeopleModel
     $this->db = $db;
   }
   
-  public function getAllPeople() {
+  public function getAllCharacters() {
     return $this->db->query("SELECT * FROM people");
   }
 }

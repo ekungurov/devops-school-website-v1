@@ -4,8 +4,8 @@
   $db = new PDO($dsn, $user, $pass);
   
   include 'models/CharacterModel.php';
-  $peopleModel = new PeopleModel($db);
-  $peopleList = $peopleModel->getAllPeople();
+  $characterModel = new CharacterModel($db);
+  $characterList = $characterModel->getAllCharacters();
   
   include 'views/character-list.php';
 ?>

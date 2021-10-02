@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($peopleList as $row): ?>
+    <?php foreach ($characterList as $row): ?>
     <tr>
       <td><?= $row['id'] ?></td>
       <td><?= $row['name'] ?></td>
