@@ -1,3 +1,12 @@
+<head>
+  <style>
+  table, th, td {
+    border: 1px solid #aaa;
+  }
+  </style>
+</head>
+<body>
+
 <table>
   <thead>
     <tr>
@@ -14,3 +23,5 @@
     <?php endforeach?>
   </tbody>
 </table>
+
+</body>
