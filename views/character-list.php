@@ -7,11 +7,14 @@
 </head>
 <body>
 
+<h1><?= $planetName ?></h1>
 <table>
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th>Gender</th>
+      <th>Eye Color</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +22,8 @@
     <tr>
       <td><?= $row['id'] ?></td>
       <td><?= $row['name'] ?></td>
+      <td><?= $row['gender'] ?></td>
+      <td><?= $row['eye_color'] ?></td>
     </tr>
     <?php endforeach?>
   </tbody>

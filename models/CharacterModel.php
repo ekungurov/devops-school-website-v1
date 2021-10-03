@@ -7,9 +7,12 @@ class CharacterModel
   {
     $this->db = $db;
   }
-  
-  public function getAllCharacters() {
-    return $this->db->query("SELECT * FROM people");
+
+  public function getCharacters($planetId) {
+    $stmt = $this->db->prepare("SELECT people.* FROM people JOIN planet ON people.planet_id = planet.id WHERE planet.id = :id");
+    $stmt->bindParam(':id', $planetId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll();
   }
 }
 ?>
