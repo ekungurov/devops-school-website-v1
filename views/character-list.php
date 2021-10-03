@@ -28,5 +28,6 @@
     <?php endforeach?>
   </tbody>
 </table>
+<p><a href="index.php">Back to planets</a></p>
 
 </body>
