@@ -21,10 +21,11 @@
 *[DRAFT]* 
 
 1. DB - RDS или unmanaged MySQL (надо выяснить)
-1. CI - пока неясно что использовать (Jenkins или AWS сервисы?)
-1. Quality Gate - вероятно SonarQube, вероятно придётся разворачивать в кубере
-1. IaC Provisioning - Terraform Cloud или Terraform+S3
-1. Orchestration - вероятно Ansible, если он понадобится
+1. Cloud - AWS
+1. IaaS Provisioning - Terraform Cloud или Terraform+S3
+1. CI/CD System - пока неясно что использовать (Jenkins или AWS сервисы?)
+1. CI/CD Quality Gates - вероятно SonarQube, вероятно придётся разворачивать в кубере
+1. Containers Orchestration - Kubernetes
+1. Scalability/redundancy - Amazon EKS
 1. Logging - пока неясно что использовать (Loki или Graylog или CloudWatch?)
 1. Monitoring - пока неясно что использовать (Datadog или Prometheus или CloudWatch?)
-1. Scalability/redundancy - Amazon EKS
