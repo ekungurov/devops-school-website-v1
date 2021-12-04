@@ -3,16 +3,20 @@ import json
 import pickle
 import urllib3
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-planets_json = requests.get("https://swapi.dev/api/planets/", verify=False).json()
+def get_some_planets(url):
+  return requests.get(url, verify=False).json()
 
-planets_amount = planets_json['count']
-i = 1
-while True:
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+next_url = "https://swapi.dev/api/planets/"
+
+requests_limit = 2
+requests_counter = 0
+while next_url and requests_counter < requests_limit:
+  planets_json = get_some_planets(next_url)
+  requests_counter += 1
   for planet in planets_json['results']:
-    print("= = = ", i,  "= = =")
+    print("= = = ", "= = =")
     print(json.dumps(planet, indent=4))
-    i += 1
-  if not planets_json['next'] or i > planets_amount:
-    break
-  planets_json = requests.get(planets_json['next'], verify=False).json()
+  next_url = planets_json['next']
+
+  
