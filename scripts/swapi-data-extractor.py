@@ -28,7 +28,7 @@ def create_connection(host_name, user_name, user_password, db_name):
 
 def create_planets_table():
   query = """
-  CREATE TABLE IF NOT EXISTS test_planet (
+  CREATE TABLE IF NOT EXISTS planet (
     id INTEGER PRIMARY KEY,
     name TEXT,
     rotation_period INTEGER,
@@ -50,7 +50,7 @@ def create_planets_table():
 
 def create_people_table():
   query = """
-  CREATE TABLE IF NOT EXISTS test_people (
+  CREATE TABLE IF NOT EXISTS people (
     id INTEGER PRIMARY KEY,
     name TEXT,
     height INTEGER,
@@ -73,7 +73,7 @@ def create_people_table():
 def insert_planet(planet):
   id = re.search(r'/planets/(\d+)/', planet['url']).group(1)
   
-  sql = "INSERT INTO test_planet ( id, name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
+  sql = "INSERT INTO planet ( id, name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
   val = ( id, planet['name'], planet['rotation_period'], planet['orbital_period'], planet['diameter'], planet['climate'], planet['gravity'], planet['terrain'], planet['surface_water'], planet['population'], planet['created'], planet['edited'], planet['url'] )
 
   cursor = connection.cursor()
@@ -85,7 +85,7 @@ def insert_person(person):
   planet_id = re.search(r'/planets/(\d+)/', person['homeworld']).group(1)
   mass = person['mass'].replace(',', '')
   
-  sql = "INSERT INTO test_people ( id, name, height, mass, hair_color, skin_color, eye_color, birth_year, gender, planet_id, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
+  sql = "INSERT INTO people ( id, name, height, mass, hair_color, skin_color, eye_color, birth_year, gender, planet_id, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
   val = ( id, person['name'], person['height'], mass, person['hair_color'], person['skin_color'], person['eye_color'], person['birth_year'], person['gender'], planet_id, person['created'], person['edited'], person['url'] ) 
   
   cursor = connection.cursor()
