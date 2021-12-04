@@ -47,6 +47,7 @@ def create_planets_table():
   cursor = connection.cursor()
   cursor.execute(query)
   connection.commit()
+  logging.info("Table 'planet' created")
 
 def create_people_table():
   query = """
@@ -69,6 +70,7 @@ def create_people_table():
   cursor = connection.cursor()
   cursor.execute(query)
   connection.commit()
+  logging.info("Table 'people' created")
 
 def insert_planet(planet):
   id = re.search(r'/planets/(\d+)/', planet['url']).group(1)
