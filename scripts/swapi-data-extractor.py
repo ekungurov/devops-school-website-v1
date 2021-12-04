@@ -6,9 +6,12 @@ import mysql.connector
 from mysql.connector import Error
 import re
 
-REQUESTS_LIMIT = 2
+REQUESTS_LIMIT = 20
 connection = None
 
+def get_json(url):
+  return requests.get(url, verify=False).json()
+  
 def create_connection(host_name, user_name, user_password, db_name):
   connection = None
   try:
@@ -23,9 +26,50 @@ def create_connection(host_name, user_name, user_password, db_name):
     logging.error(e)
   return connection
 
-def get_json(url):
-  return requests.get(url, verify=False).json()
-  
+def create_planets_table():
+  query = """
+  CREATE TABLE IF NOT EXISTS test_planet (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    rotation_period INTEGER,
+    orbital_period INTEGER,
+    diameter INTEGER,
+    climate TEXT,
+    gravity TEXT,
+    terrain TEXT,
+    surface_water TEXT,
+    population BIGINT,
+    created_date TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT FROM_UNIXTIME(0),
+    url TEXT
+  ) ENGINE = InnoDB
+  """
+  cursor = connection.cursor()
+  cursor.execute(query)
+  connection.commit()
+
+def create_people_table():
+  query = """
+  CREATE TABLE IF NOT EXISTS test_people (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    height INTEGER,
+    mass FLOAT,
+    hair_color TEXT,
+    skin_color TEXT,
+    eye_color TEXT,
+    birth_year TEXT,
+    gender TEXT,
+    planet_id INTEGER NOT NULL REFERENCES planet(id),
+    created_date TIMESTAMP,
+    updated_date TIMESTAMP DEFAULT FROM_UNIXTIME(0),
+    url TEXT
+  ) ENGINE = InnoDB
+  """
+  cursor = connection.cursor()
+  cursor.execute(query)
+  connection.commit()
+
 def insert_planet(planet):
   id = re.search(r'/planets/(\d+)/', planet['url']).group(1)
   
@@ -71,7 +115,9 @@ def parse_people():
 def main():
   global connection
   connection = create_connection(config.DB_HOSTNAME, config.DB_LOGIN, config.DB_PASSWORD, config.DB_NAME)
-  #parse_planets()
+  create_planets_table()
+  create_people_table()  
+  parse_planets()
   parse_people()
 
 if __name__ == "__main__":
