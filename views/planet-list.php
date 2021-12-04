@@ -14,6 +14,7 @@
       <th>ID</th>
       <th>Name</th>
       <th>Climate</th>
+      <th>Gravity</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,7 @@
         <?= $row['name'] ?>
       </a></td>
       <td><?= $row['climate'] ?></td>
+      <td><?= $row['gravity'] ?></td>
     </tr>
     <?php endforeach ?>
   </tbody>
