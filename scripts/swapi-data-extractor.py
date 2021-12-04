@@ -1,4 +1,5 @@
 import requests
+import urllib3
 import json
 import logging
 import config
@@ -10,8 +11,12 @@ REQUESTS_LIMIT = 20
 connection = None
 
 def get_json(url):
+  logging.warning(f"Fetching {url}")
   return requests.get(url, verify=False).json()
-  
+
+def disable_ssl_warnings():
+  urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
+
 def create_connection(host_name, user_name, user_password, db_name):
   connection = None
   try:
@@ -85,7 +90,7 @@ def insert_planet(planet):
   cursor = connection.cursor()
   cursor.execute(sql, val)
   connection.commit()
-  
+
 def insert_person(person):
   id = re.search(r'/people/(\d+)/', person['url']).group(1)
   planet_id = re.search(r'/planets/(\d+)/', person['homeworld']).group(1)
@@ -121,12 +126,13 @@ def parse_people():
     for person in people_json['results']:
       insert_person(person)
     next_url = people_json['next']
-    
+
 def main():
   global connection
   connection = create_connection(config.DB_HOSTNAME, config.DB_LOGIN, config.DB_PASSWORD, config.DB_NAME)
   create_planets_table()
-  create_people_table()  
+  create_people_table()
+  disable_ssl_warnings()
   parse_planets()
   parse_people()
 

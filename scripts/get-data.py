@@ -2,8 +2,9 @@ import requests
 import json
 import pickle
 import urllib3
+import logging
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
 r = requests.get("https://swapi.dev/api/planets/", verify=False)
 data_json = r.json()
