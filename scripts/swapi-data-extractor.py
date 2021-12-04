@@ -75,8 +75,12 @@ def create_people_table():
 def insert_planet(planet):
   id = re.search(r'/planets/(\d+)/', planet['url']).group(1)
   
-  sql = "INSERT INTO planet ( id, name, rotation_period, orbital_period, diameter, climate, gravity, terrain, surface_water, population, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
-  val = ( id, planet['name'], planet['rotation_period'], planet['orbital_period'], planet['diameter'], planet['climate'], planet['gravity'], planet['terrain'], planet['surface_water'], planet['population'], planet['created'], planet['edited'], planet['url'] )
+  sql = "INSERT INTO planet ( id, name, rotation_period, orbital_period, diameter, climate, gravity, terrain, \
+                              surface_water, population, created_date, updated_date, url ) \
+         VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
+  val = ( id, planet['name'], planet['rotation_period'], planet['orbital_period'], planet['diameter'], \
+          planet['climate'], planet['gravity'], planet['terrain'], planet['surface_water'], planet['population'], \
+          planet['created'], planet['edited'], planet['url'] )
 
   cursor = connection.cursor()
   cursor.execute(sql, val)
@@ -87,8 +91,12 @@ def insert_person(person):
   planet_id = re.search(r'/planets/(\d+)/', person['homeworld']).group(1)
   mass = person['mass'].replace(',', '')
   
-  sql = "INSERT INTO people ( id, name, height, mass, hair_color, skin_color, eye_color, birth_year, gender, planet_id, created_date, updated_date, url ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
-  val = ( id, person['name'], person['height'], mass, person['hair_color'], person['skin_color'], person['eye_color'], person['birth_year'], person['gender'], planet_id, person['created'], person['edited'], person['url'] ) 
+  sql = "INSERT INTO people ( id, name, height, mass, hair_color, skin_color, eye_color, birth_year, \
+                              gender, planet_id, created_date, updated_date, url ) \
+         VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )"
+  val = ( id, person['name'], person['height'], mass, person['hair_color'], person['skin_color'], \
+          person['eye_color'], person['birth_year'], person['gender'], planet_id, person['created'], \
+          person['edited'], person['url'] ) 
   
   cursor = connection.cursor()
   cursor.execute(sql, val)
